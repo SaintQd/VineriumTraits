@@ -1,0 +1,36 @@
+package org.saintqd.vineriumtraits.mythicmobs.mechanics
+
+import io.lumine.mythic.api.adapters.AbstractEntity
+import io.lumine.mythic.api.config.MythicLineConfig
+import io.lumine.mythic.api.skills.ITargetedEntitySkill
+import io.lumine.mythic.api.skills.SkillMetadata
+import io.lumine.mythic.api.skills.SkillResult
+import io.lumine.mythic.core.skills.SkillExecutor
+import io.lumine.mythic.core.skills.SkillMechanic
+import org.bukkit.entity.Player
+import org.saintqd.vineriumlib.utils.VinUtils
+import org.saintqd.vineriumtraits.managers.TraitManager
+import java.io.File
+
+class VinAddTraitMechanic(manager : SkillExecutor, file : File, line : String, config : MythicLineConfig) : SkillMechanic(manager,file,line,config), ITargetedEntitySkill {
+
+    val traitName : String = config.getString(arrayOf("trait", "t"),"")
+
+    override fun castAtEntity(
+        data: SkillMetadata,
+        target: AbstractEntity
+    ): SkillResult {
+        VinUtils.sendDebugMessage(3,"MythicMobsMechanic: vinaddtrait")
+
+        val bukkitEntity = target.bukkitEntity
+        if (bukkitEntity !is Player)
+            return SkillResult.INVALID_TARGET
+
+        val traitOwner = TraitManager.instance.traitOwners[bukkitEntity.uniqueId] ?: return SkillResult.INVALID_TARGET
+        val trait = TraitManager.instance.traits[traitName] ?: return SkillResult.INVALID_CONFIG
+        traitOwner.addTrait(trait)
+        return SkillResult.SUCCESS
+    }
+
+
+}

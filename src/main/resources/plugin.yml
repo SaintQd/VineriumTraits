@@ -1,0 +1,11 @@
+name: VineriumTraits
+version: 1.0
+author: SaintQd
+main: org.saintqd.vineriumtraits.VineriumTraits
+api-version: 1.21.11
+depend: [VineriumLib]
+softdepend: [MythicMobs]
+permissions:
+  vineriumtraits.admin:
+    description: Access to admin commands.
+    default: op

@@ -1,0 +1,14 @@
+name: VineriumTraits
+version: '1.0'
+author: SaintQd
+main: org.saintqd.vineriumtraits.VineriumTraits
+api-version: 1.21.11
+description: VineriumTraits Plugin
+dependencies:
+  server:
+    VineriumLib:
+      load: BEFORE
+      required: true
+    MythicMobs:
+      load: BEFORE
+      required: false

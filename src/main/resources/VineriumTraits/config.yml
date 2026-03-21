@@ -1,0 +1,19 @@
+Language: 'ru_ru'
+Storage: mysql
+Database:
+  Url: 'jdbc:mysql://127.0.0.1:3306/vintraits?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false'
+  TablePrefix: vintraits
+  Username: root
+  Password: admin
+Traits:
+  SecondsBetweenChange: 62208000
+  AvailablePoints: 10
+Gui:
+  Models:
+    PrevPage: minecraft:arrow
+    NextPage: minecraft:arrow
+    Close: minecraft:barrier
+    Review: minecraft:green_concrete
+    ReviewConfirm: minecraft:lime_concrete
+    Return: minecraft:barrier
+    Reset: minecraft:paper

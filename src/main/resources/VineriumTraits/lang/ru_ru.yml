@@ -1,0 +1,36 @@
+Lang:
+  not_enough_arguments: "<red>Недостаточно аргументов."
+  reload_message: "<green>Плагин перезагружен."
+  no_permission: "<red>Нет прав!"
+  command_trait_owner_not_exist: '<red>Объект владельца черт для игрока <gold>{1} <red>не существует.'
+  command_trait_does_not_exist: '<red>Черта личности с названием <gold>{1} <red>не существует.'
+  command_add_trait_success: '<green>Черта личности с названием <yellow>{1} <green>добавлена игроку <light_purple>{2}<green>.'
+  command_remove_trait_success: '<green>Черта личности с названием <yellow>{1} <green>убрана у игрока <light_purple>{2}<green>.'
+  command_reset_select_success: '<green>Кулдаун смены свойств персонажа успешно сброшен для игрока <light_purple>{1}<green>.'
+  command_reset_action_success: '<green>Кулдаун действий свойств персонажа успешно сброшен для игрока <light_purple>{1}<green>.'
+  trait_gui_title: '<#E357E0>Свойства персонажа (<#D23E22>{1} ОС<#E357E0>)'
+  trait_gui_positive_cost_format: '<#E357E0>( <gold>-{1} <#E357E0>ОС)'
+  trait_gui_negative_cost_format: '<#E357E0>( <green>+{1} <#E357E0>ОС)'
+  trait_gui_neutral_cost_format: '<#E357E0>( <yellow>{1} <#E357E0>ОС)'
+  trait_gui_select_trait: '<yellow>Нажмите, чтобы выбрать...'
+  trait_gui_select_trait_cooldown: '<red>Смена возможна через <gold>{1} дн<red>.'
+  trait_gui_select_trait_no_points: '<red>Недостаточно очков свойств.'
+  menu_prev_page: "Предыдущая страница"
+  menu_prev_page_lore: "<yellow>Нажмите, чтобы открыть предыдущую страницу."
+  menu_next_page: "Следующая страница"
+  menu_next_page_lore: "<yellow>Нажмите, чтобы открыть следующую страницу."
+  menu_close: "<red>Выйти из меню"
+  menu_close_lore: "<yellow>Нажмите, чтобы выйти из меню."
+  menu_review: "<gold>Выбранные свойства"
+  menu_review_lore: "<yellow>Нажмите, чтобы просмотреть текущие<newline><yellow>свойства или подтвердить выбор новых."
+  menu_review_remove_lore: "<yellow>Нажмите, чтобы убрать свойство."
+  menu_review_remove_deny_lore: "<red>Нельзя убрать"
+  trait_preselect: "<green>Свойство <light_purple>{1} <green>добавлено в список выбираемых.<newline><green>Зайдите в меню <gold>выбранных свойств, <green>чтобы подтвердить выбор."
+  trait_review_gui_title: '<#E357E0>Выбор свойств (<#D23E22>{1} ОС<#E357E0>)'
+  menu_confirm: '<green>Подтвердить выбор'
+  menu_confirm_lore: '<yellow>Нажмите, чтобы подтвердить выбор новых свойств.<newline><red>ВНИМАНИЕ: <yellow>после смены свойств выбрать<newline><yellow>новые будет воможно только через <gold>{1} дн.<yellow>!'
+  menu_confirm_success: '<green>Смена свойств успешно совершена.'
+  menu_return: '<green>Вернуться в меню свойств'
+  menu_reset: '<gold>Отменить смену свойств'
+  menu_reset_lore: '<yellow>Нажмите, чтобы отменить смену свойств.<newline><yellow>Эта опция не удалит ваши текущие свойства.'
+  menu_reset_success: '<green>Смена свойств успешно отменена.'
