@@ -3,7 +3,7 @@ package org.saintqd.vineriumtraits.events;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.saintqd.vineriumtraits.traits.TraitOwner;
+import org.saintqd.vineriumtraits.managers.TraitOwner;
 
 public class TraitOwnerQuitEvent extends Event {
 

@@ -7,8 +7,11 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.saintqd.vineriumtraits.VineriumTraits
+import org.saintqd.vineriumtraits.annotations.VinTraitType
 import org.saintqd.vineriumtraits.managers.TraitManager
+import org.saintqd.vineriumtraits.managers.TraitOwner
 
+@VinTraitType("on_timer")
 class OnTimerAction(name : String, config : ConfigurationSection) : TraitAction(name,config) {
 
     private val period = config.getInt("Period",20)

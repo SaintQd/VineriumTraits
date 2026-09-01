@@ -4,7 +4,7 @@ author: SaintQd
 main: org.saintqd.vineriumtraits.VineriumTraits
 api-version: 1.21.11
 depend: [VineriumLib]
-softdepend: [MythicMobs]
+softdepend: [MythicMobs, Vault, BreweryX, CMI]
 permissions:
   vineriumtraits.admin:
     description: Access to admin commands.

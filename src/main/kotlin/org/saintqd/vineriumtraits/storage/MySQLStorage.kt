@@ -5,15 +5,17 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.jdbi.v3.core.Jdbi
+import org.saintqd.vineriumlib.utils.SQLUtils
 import org.saintqd.vineriumtraits.VineriumTraits
 import org.saintqd.vineriumtraits.managers.TraitManager
-import org.saintqd.vineriumtraits.traits.TraitOwner
-import org.saintqd.vineriumtraits.utils.SQLUtil
+import org.saintqd.vineriumtraits.managers.TraitOwner
 import java.sql.Connection
 import java.sql.SQLException
 import java.sql.Statement
 import java.util.UUID
 
+@Deprecated("Deprecated in favor of MySqlJdbiStorage")
 class MySQLStorage : DataStorage {
 
     val dataSource = HikariDataSource()
@@ -38,18 +40,19 @@ class MySQLStorage : DataStorage {
 
     init {
         setupDataSource()
+
         connection = dataSource.connection
         var tablePrefix = VineriumTraits.inst().config.getString("Database.TablePrefix","")!!
         tablePrefix = if (tablePrefix.isBlank()) "" else tablePrefix + "_"
         ownerTable = tablePrefix + "trait_owners"
         traitsTable = tablePrefix + "traits"
 
-        if (SQLUtil.checkIfTableExists(connection,ownerTable)) {
+        if (SQLUtils.checkIfTableExists(connection,ownerTable)) {
             val expected = hashMapOf(
                 Pair(OWNER_TABLE_COLUMN_UUID_NAME,"varchar(36)"),
                 Pair(OWNER_TABLE_COLUMN_SELECT_COOLDOWN_NAME,"bigint unsigned")
             )
-            if (!SQLUtil.checkIfTableMatchesStructure(connection,ownerTable,expected)) {
+            if (!SQLUtils.checkIfTableMatchesStructure(connection,ownerTable,expected)) {
                 throw SQLException("JDBC table $ownerTable does not match expected structure")
             }
         }
@@ -65,12 +68,12 @@ class MySQLStorage : DataStorage {
                 .use { statement -> statement.executeUpdate() }
         }
 
-        if (SQLUtil.checkIfTableExists(connection,traitsTable)) {
+        if (SQLUtils.checkIfTableExists(connection,traitsTable)) {
             val expected = hashMapOf(
                 Pair(TRAITS_TABLE_COLUMN_OWNER_ID_NAME,"int unsigned"),
                 Pair(TRAITS_TABLE_COLUMN_TRAIT_NAME,"varchar(64)")
             )
-            if (!SQLUtil.checkIfTableMatchesStructure(connection,traitsTable,expected)) {
+            if (!SQLUtils.checkIfTableMatchesStructure(connection,traitsTable,expected)) {
                 throw SQLException("JDBC table $traitsTable does not match expected structure")
             }
         }
@@ -158,6 +161,8 @@ class MySQLStorage : DataStorage {
                 "insert into $traitsTable ($TRAITS_TABLE_COLUMN_OWNER_ID_NAME,$TRAITS_TABLE_COLUMN_TRAIT_NAME) VALUES (?, ?)")
                 .use { statement ->
                     for (traitName in traitOwner.traits) {
+                        if (!TraitManager.instance.traits.containsKey(traitName))
+                            continue
                         statement.setString(1, ownerId.toString())
                         statement.setString(2, traitName)
                         statement.addBatch()
@@ -199,6 +204,17 @@ class MySQLStorage : DataStorage {
             }
     }
 
+    override fun resetTraitOwnerSelectCooldown(uuid : UUID) {
+
+        connection.prepareStatement(
+            "update $ownerTable set `$OWNER_TABLE_COLUMN_SELECT_COOLDOWN_NAME` = ? where `$OWNER_TABLE_COLUMN_UUID_NAME` = ?")
+            .use { statement ->
+                statement.setLong(1, 0)
+                statement.setString(2,uuid.toString())
+                statement.executeUpdate()
+            }
+    }
+
     override fun loadTraitOwnerData(player: Player) : TraitOwner {
         val traitOwner = TraitOwner(player)
         val ownerId = getOwnerId(player.uniqueId)
@@ -220,9 +236,7 @@ class MySQLStorage : DataStorage {
                     statement.executeQuery().use { resultSet ->
                         while (resultSet.next()) {
                             val traitName = resultSet.getString(1)
-                            TraitManager.instance.traits[traitName]?.let { trait ->
-                                traitOwner.addTrait(trait)
-                            }
+                            traitOwner.cachedTraits.add(traitName)
                         }
                     }
                 }

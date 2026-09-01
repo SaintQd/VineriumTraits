@@ -19,12 +19,12 @@ class MythicMobsListener : Listener {
     private val conditions = hashMapOf<String,(String, MythicLineConfig) -> ISkillCondition>()
 
     fun registerMechanics() {
-        mechanics["vinaddtrait"] = { manager : SkillExecutor, file : File, line : String, config : MythicLineConfig -> VinAddTraitMechanic(manager,file,line,config) }
-        mechanics["vinremovetrait"] = { manager : SkillExecutor, file : File, line : String, config : MythicLineConfig -> VinRemoveTraitMechanic(manager,file,line,config) }
+        //mechanics["vinaddtrait"] = { manager : SkillExecutor, file : File, line : String, config : MythicLineConfig -> VinAddTraitMechanic(manager,file,line,config) }
+        //mechanics["vinremovetrait"] = { manager : SkillExecutor, file : File, line : String, config : MythicLineConfig -> VinRemoveTraitMechanic(manager,file,line,config) }
     }
 
     fun registerConditions() {
-        conditions["vinhastrait"] = { line: String, mlc : MythicLineConfig -> VinHasTraitCondition(line,mlc) }
+        //conditions["vinhastrait"] = { line: String, mlc : MythicLineConfig -> VinHasTraitCondition(line,mlc) }
     }
 
     @EventHandler

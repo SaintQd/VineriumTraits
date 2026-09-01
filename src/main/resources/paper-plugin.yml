@@ -2,6 +2,7 @@ name: VineriumTraits
 version: '1.0'
 author: SaintQd
 main: org.saintqd.vineriumtraits.VineriumTraits
+loader: org.saintqd.vineriumtraits.VineriumTraitsLoader
 api-version: 1.21.11
 description: VineriumTraits Plugin
 dependencies:
@@ -10,5 +11,14 @@ dependencies:
       load: BEFORE
       required: true
     MythicMobs:
+      load: BEFORE
+      required: false
+    Vault:
+      load: BEFORE
+      required: false
+    BreweryX:
+      load: BEFORE
+      required: false
+    CMI:
       load: BEFORE
       required: false

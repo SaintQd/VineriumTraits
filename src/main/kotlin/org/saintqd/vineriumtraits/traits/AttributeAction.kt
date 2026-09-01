@@ -10,11 +10,14 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.saintqd.vineriumtraits.VineriumTraits
+import org.saintqd.vineriumtraits.annotations.VinTraitType
 import org.saintqd.vineriumtraits.events.TraitOwnerJoinEvent
 import org.saintqd.vineriumtraits.events.TraitOwnerQuitEvent
 import org.saintqd.vineriumtraits.managers.TraitManager
+import org.saintqd.vineriumtraits.managers.TraitOwner
 import java.util.UUID
 
+@VinTraitType("attribute")
 class AttributeAction(name : String, config : ConfigurationSection) : TraitAction(name,config) {
 
     private val attributes = linkedMapOf<String, Pair<AttributeModifier.Operation, Double>>()

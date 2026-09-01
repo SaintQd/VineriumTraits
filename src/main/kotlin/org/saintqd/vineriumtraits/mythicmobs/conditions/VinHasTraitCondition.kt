@@ -3,13 +3,16 @@ package org.saintqd.vineriumtraits.mythicmobs.conditions
 import io.lumine.mythic.api.adapters.AbstractEntity
 import io.lumine.mythic.api.config.MythicLineConfig
 import io.lumine.mythic.api.skills.conditions.IEntityCondition
+import io.lumine.mythic.bukkit.events.MythicConditionLoadEvent
 import io.lumine.mythic.core.skills.SkillCondition
+import io.lumine.mythic.core.utils.annotations.MythicCondition
 import org.bukkit.entity.Player
 import org.saintqd.vineriumtraits.managers.TraitManager
 
-class VinHasTraitCondition(line: String, mlc : MythicLineConfig) : SkillCondition(line), IEntityCondition {
+@MythicCondition(author = "SaintQd", name = "vinhastrait")
+class VinHasTraitCondition(event : MythicConditionLoadEvent) : IEntityCondition {
 
-    val traitName: String = mlc.getString(arrayOf("trait", "t"),"")
+    val traitName: String = event.config.getString(arrayOf("trait", "t"),"")
 
     override fun check(abstractEntity: AbstractEntity): Boolean {
         if (traitName.isEmpty())

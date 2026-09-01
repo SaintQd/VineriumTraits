@@ -6,14 +6,21 @@ Database:
   Username: root
   Password: admin
 Traits:
-  SecondsBetweenChange: 62208000
+  SecondsBetweenChange: 2592000
   AvailablePoints: 10
+  BindHintPeriod: 6000
 Gui:
+  Simple: false
   Models:
     PrevPage: minecraft:arrow
     NextPage: minecraft:arrow
     Close: minecraft:barrier
     Review: minecraft:green_concrete
+    ReviewPending: minecraft:lime_concrete
     ReviewConfirm: minecraft:lime_concrete
     Return: minecraft:barrier
     Reset: minecraft:paper
+  Sounds:
+    open: minecraft:entity.player.levelup
+    click: minecraft:entity.player.levelup
+    confirm: minecraft:entity.player.levelup

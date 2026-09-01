@@ -1,17 +1,34 @@
 Lang:
   not_enough_arguments: "<red>Недостаточно аргументов."
   reload_message: "<green>Плагин перезагружен."
+  save_data_message: "<green>Данные свойств персонажей сохранены."
   no_permission: "<red>Нет прав!"
+  text_enabled: '<green>Включено'
+  text_disabled: '<red>Отключено'
+  command_only_by_player: '<red>Данное действие может быть совершено только игроком.'
   command_trait_owner_not_exist: '<red>Объект владельца черт для игрока <gold>{1} <red>не существует.'
   command_trait_does_not_exist: '<red>Черта личности с названием <gold>{1} <red>не существует.'
   command_add_trait_success: '<green>Черта личности с названием <yellow>{1} <green>добавлена игроку <light_purple>{2}<green>.'
+  command_add_trait_already_present: '<yellow>Черта личности с названием <gold>{1} <yellow>уже имеется у игрока <light_purple>{2}<yellow>.'
+  command_add_preselected_trait_success: '<green>Черта личности с названием <yellow>{1} <green>предварительно добавлена игроку <light_purple>{2}<green>.'
+  command_add_preselected_trait_to_remove_success: '<green>Черта личности с названием <yellow>{1} <green>указана для предварительного удаления игроку <light_purple>{2}<green>.'
+  command_remove_preselected_trait_success: '<green>Черта личности с названием <yellow>{1} <green>предварительно убрана у игрока <light_purple>{2}<green>.'
+  command_reset_preselected_traits_success: '<green>Предварительно выбранные свойства персонажа игрока <light_purple>{1}</light_purple> успешно сброшены.'
   command_remove_trait_success: '<green>Черта личности с названием <yellow>{1} <green>убрана у игрока <light_purple>{2}<green>.'
+  command_remove_trait_not_present: '<yellow>Черта личности с названием <gold>{1} <yellow>отсутствует у игрока <light_purple>{2}<yellow>.'
+  command_reset_select_offline_player_not_found: '<red>Игрок <gold>{1}</gold> не найден.'
   command_reset_select_success: '<green>Кулдаун смены свойств персонажа успешно сброшен для игрока <light_purple>{1}<green>.'
   command_reset_action_success: '<green>Кулдаун действий свойств персонажа успешно сброшен для игрока <light_purple>{1}<green>.'
+  command_use_trait_not_bindable: '<red>Черта личности с названием <gold>{1} <red>не может быть применена командой.'
+  command_toggle_interact_true: '<gradient:#f5c619:#dfd45d>Комбинации клавиш <green>включены</green>. Теперь вы снова можете активировать свойства через клавиши.'
+  command_toggle_interact_true_other: '<gradient:#f5c619:#dfd45d>Комбинации клавиш игрока <light_purple>{1}</light_purple> <green>включены</green>.'
+  command_toggle_interact_false: '<gradient:#f5c619:#dfd45d>Комбинации клавиш <red>отключены</red>. Теперь вы сможете активировать свойства только через команды.'
+  command_toggle_interact_false_other: '<gradient:#f5c619:#dfd45d>Комбинации клавиш игрока <light_purple>{1}</light_purple> <red>отключены</red>.'
+  command_remove_data_success: '<green>Данные свойств персонажа успешно сброшены для игрока <light_purple>{1}<green>.'
   trait_gui_title: '<#E357E0>Свойства персонажа (<#D23E22>{1} ОС<#E357E0>)'
-  trait_gui_positive_cost_format: '<#E357E0>( <gold>-{1} <#E357E0>ОС)'
-  trait_gui_negative_cost_format: '<#E357E0>( <green>+{1} <#E357E0>ОС)'
-  trait_gui_neutral_cost_format: '<#E357E0>( <yellow>{1} <#E357E0>ОС)'
+  trait_gui_positive_cost_format: '( <gold>-{1}</gold> ОС)'
+  trait_gui_negative_cost_format: '( <green>+{1}</green> ОС)'
+  trait_gui_neutral_cost_format: '( <yellow>{1}</yellow> ОС)'
   trait_gui_select_trait: '<yellow>Нажмите, чтобы выбрать...'
   trait_gui_select_trait_cooldown: '<red>Смена возможна через <gold>{1} дн<red>.'
   trait_gui_select_trait_no_points: '<red>Недостаточно очков свойств.'
@@ -25,12 +42,34 @@ Lang:
   menu_review_lore: "<yellow>Нажмите, чтобы просмотреть текущие<newline><yellow>свойства или подтвердить выбор новых."
   menu_review_remove_lore: "<yellow>Нажмите, чтобы убрать свойство."
   menu_review_remove_deny_lore: "<red>Нельзя убрать"
+  menu_review_bind_trait_hint: '<gray>Используйте <white>цифры</white>, чтобы назначить свойство.'
+  menu_review_bind_trait_interaction_hint: '<light_purple>[<aqua>{1}</aqua>]</light_purple> <gray>Клавиша: '
+  menu_review_bind_trait_interaction_selected: '<white>{1}'
+  menu_review_bind_trait_interaction_not_selected: '<dark_gray>{1}'
+  menu_review_bind_trait_require_sneaking_hint: '<light_purple>[<aqua>{1}</aqua>]</light_purple> <gray>Требуется красться: </gray>{2}'
+  menu_review_bind_trait_require_empty_hand_hint: '<light_purple>[<aqua>{1}</aqua>]</light_purple> <gray>Требуется пустая рука: </gray>{2}'
+  menu_review_bind_trait_remove: '<gray>Нажмите <white>ПКМ</white>, чтобы отменить назначение.'
+  menu_review_bind_trait_remove_message: '<yellow>Назначение клавиш для свойства {1}<reset><yellow> сброшено.'
   trait_preselect: "<green>Свойство <light_purple>{1} <green>добавлено в список выбираемых.<newline><green>Зайдите в меню <gold>выбранных свойств, <green>чтобы подтвердить выбор."
   trait_review_gui_title: '<#E357E0>Выбор свойств (<#D23E22>{1} ОС<#E357E0>)'
   menu_confirm: '<green>Подтвердить выбор'
-  menu_confirm_lore: '<yellow>Нажмите, чтобы подтвердить выбор новых свойств.<newline><red>ВНИМАНИЕ: <yellow>после смены свойств выбрать<newline><yellow>новые будет воможно только через <gold>{1} дн.<yellow>!'
+  menu_confirm_lore_points_remaining: '<gray>Осталось очков свойств: <gold>{1}'
+  menu_confirm_lore_hint: '<yellow>Нажмите ЛКМ, чтобы подтвердить выбор новых свойств.'
+  menu_confirm_lore_cooldown_message: '<red>ВНИМАНИЕ: <yellow>после смены свойств выбрать<newline><yellow>новые будет возможно только через <gold>{1} дн.<yellow>!'
   menu_confirm_success: '<green>Смена свойств успешно совершена.'
+  menu_confirm_preselected_trait_to_remove_not_present: '<red>Произошла смена свойств во время подтверждения. Пожалуйста, совершите смену свойств повторно.'
   menu_return: '<green>Вернуться в меню свойств'
   menu_reset: '<gold>Отменить смену свойств'
   menu_reset_lore: '<yellow>Нажмите, чтобы отменить смену свойств.<newline><yellow>Эта опция не удалит ваши текущие свойства.'
   menu_reset_success: '<green>Смена свойств успешно отменена.'
+  list_online_players_with_trait_title: "<yellow>Игроки со свойством <gold>{1}<yellow>:"
+  list_online_players_with_trait_format: "<gray>{1}. <light_purple>{2}"
+  list_player_traits_title: "<yellow>Свойства игрока <gold>{1}<yellow>:"
+  list_player_traits_format: "<gray>{1}. <light_purple>{2}"
+  hide_in_containers_message: "<green>Открыв данный контейнер, вы обнаружили в нём <light_purple>{1}<green>!"
+  water_breathing_death_message: "{1} задохнулся на суше"
+  binded_traits_hint_message: '<gradient:#f5c619:#dfd45d>У вас не назначены некоторые свойства!<newline>Перейдите в <gold><u><click:run_command:"/vintraits reviewmenu"><hover:show_text:"<gold>Нажмите, чтобы применить...</gold>">меню свойств</hover></click></u></gold>, чтобы назначить их на клавиши!'
+  command_binded_traits_toggle_disable: '<gradient:#f5c619:#dfd45d>Напоминания о назначении свойств <red>отключены</red>'
+  command_binded_traits_toggle_disable_other: '<gradient:#f5c619:#dfd45d>Напоминания о назначении свойств <red>отключены</red> для игрока <light_purple>{1}</light_purple>.'
+  command_binded_traits_toggle_enable: '<gradient:#f5c619:#dfd45d>Напоминания о назначении свойств <green>включены</green>'
+  command_binded_traits_toggle_enable_other: '<gradient:#f5c619:#dfd45d>Напоминания о назначении свойств <green>включены</green> для игрока <light_purple>{1}</light_purple>.'

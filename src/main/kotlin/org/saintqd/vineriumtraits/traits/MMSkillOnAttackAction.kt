@@ -5,29 +5,26 @@ import io.lumine.mythic.bukkit.BukkitAdapter
 import org.bukkit.Bukkit
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.saintqd.vineriumlib.utils.VinUtils
 import org.saintqd.vineriumtraits.VineriumTraits
 import org.saintqd.vineriumtraits.managers.TraitManager
-import org.saintqd.vineriumtraits.utils.MMAbilityData
+import org.saintqd.vineriumlib.utils.MMAbilityData
+import org.saintqd.vineriumtraits.annotations.VinTraitType
 import java.util.UUID
+import java.util.concurrent.ThreadLocalRandom
+import kotlin.collections.set
 
+@VinTraitType("mm_skill_on_attack")
 class MMSkillOnAttackAction(name : String, config : ConfigurationSection) : TraitAction(name,config) {
 
-    private var skillName = config.getString("Skill","none")!!
-
-    override var executeFunction : (TraitOwner) -> Boolean = Function@ { traitOwner ->
-        if (canExecute(traitOwner)) {
-            val skillMetadata = MMAbilityData.prepareMMSkillData(traitOwner.player)
-            entityTargets[traitOwner.player.uniqueId]?.let { target ->
-                skillMetadata.setEntityTarget(target)
-            }
-            return@Function MMAbilityData.executeMMSkill(skillName,skillMetadata)
-        }
-        return@Function false
-    }
+    private var skillName = config.getString("SkillName","vintrait_$name")!!
+    val shouldBeCritical = config.getBoolean("Critical",false)
+    val chance = config.getDouble("Chance",1.0)
 
     override fun register() {
         if (actionsMap.isEmpty())
@@ -50,16 +47,32 @@ class MMSkillOnAttackAction(name : String, config : ConfigurationSection) : Trai
             @EventHandler
             fun onPlayerAttack(event: EntityDamageByEntityEvent) {
                 if (event.isCancelled) return
-                val traitOwner = TraitManager.instance.traitOwners[event.damager.uniqueId] ?: return
                 val entity = event.entity
                 if (entity !is LivingEntity) return
-                for (actionName in actionsMap.keys) {
-                    val trait = actionsMap[actionName]
-                    if (trait != null) {
+                val damager = event.damageSource.causingEntity
+
+                if (damager is Player) {
+                    val traitOwner = TraitManager.instance.traitOwners[damager.uniqueId] ?: return
+                    val commonTraits = traitOwner.traits intersect actionsMap.keys
+                    if (commonTraits.isEmpty()) return
+                    for (traitName in commonTraits) {
                         val abstractEntity = BukkitAdapter.adapt(entity)
-                        entityTargets[traitOwner.player.uniqueId] = abstractEntity
-                        TraitManager.instance.executeAction(actionName, traitOwner)
-                        entityTargets.remove(traitOwner.player.uniqueId)
+                        actionsMap[traitName]?.let { action ->
+                            if (action.chance < 1.0 && action.chance > 0.0) {
+                                if (ThreadLocalRandom.current().nextDouble() > action.chance)
+                                    continue
+                            }
+                            if (action.shouldBeCritical && !event.isCritical)
+                                continue
+                            TraitManager.instance.executeAction(traitName,traitOwner) Function@ { traitOwner ->
+                                if (action.canExecute(traitOwner) && action.skillName.isNotEmpty()) {
+                                    val skillMetadata = MMAbilityData.prepareMMSkillData(traitOwner.player)
+                                    skillMetadata.setEntityTarget(abstractEntity)
+                                    return@Function MMAbilityData.executeMMSkill(action.skillName, skillMetadata)
+                                }
+                                return@Function false
+                            }
+                        }
                     }
                 }
             }

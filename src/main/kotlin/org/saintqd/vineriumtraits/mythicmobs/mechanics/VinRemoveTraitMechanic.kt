@@ -5,16 +5,19 @@ import io.lumine.mythic.api.config.MythicLineConfig
 import io.lumine.mythic.api.skills.ITargetedEntitySkill
 import io.lumine.mythic.api.skills.SkillMetadata
 import io.lumine.mythic.api.skills.SkillResult
+import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent
 import io.lumine.mythic.core.skills.SkillExecutor
 import io.lumine.mythic.core.skills.SkillMechanic
+import io.lumine.mythic.core.utils.annotations.MythicMechanic
 import org.bukkit.entity.Player
 import org.saintqd.vineriumlib.utils.VinUtils
 import org.saintqd.vineriumtraits.managers.TraitManager
 import java.io.File
 
-class VinRemoveTraitMechanic(manager : SkillExecutor, file : File, line : String, config : MythicLineConfig) : SkillMechanic(manager,file,line,config), ITargetedEntitySkill {
+@MythicMechanic(author = "SaintQd", name = "vinremovetrait")
+class VinRemoveTraitMechanic(event : MythicMechanicLoadEvent) : ITargetedEntitySkill {
 
-    val traitName : String = config.getString(arrayOf("trait", "t"),"")
+    val traitName : String = event.config.getString(arrayOf("trait", "t"),"")
 
     override fun castAtEntity(
         data: SkillMetadata,
